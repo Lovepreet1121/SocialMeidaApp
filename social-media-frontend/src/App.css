@@ -1,42 +1,270 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* social-media-frontend/src/App.css */
+
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A more modern, clean font */
+  background-color: #f0f2f5; /* Light gray background, gives a soft feel */
+  color: #333; /* Dark gray text for readability */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; /* Smooths text for better appearance */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the app takes up the full viewport height */
+}
+
+/* Navigation Bar Styling */
+nav {
+  background-color: #28a745; /* A vibrant green for the navigation bar */
+  padding: 15px 30px; /* Generous padding for a better feel */
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+nav ul {
+  list-style: none; /* Removes bullet points */
+  display: flex;
+  justify-content: flex-start; /* Aligns nav items to the left */
+  align-items: center; /* Vertically centers items */
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin-right: 25px; /* Spacing between nav items */
+}
+
+nav ul li:last-child {
+  margin-right: 0; /* No margin on the last item */
+}
+
+nav ul li a,
+nav ul li button {
+  color: white; /* White text */
+  text-decoration: none; /* Removes underline from links */
+  font-size: 17px; /* Slightly larger text */
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 5px; /* Rounded corners for buttons/links */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+  border: none; /* Removes default button border */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
+nav ul li a:hover,
+nav ul li button:hover {
+  background-color: #218838; /* Darker green on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Main Content Area - for centering and consistent width */
+/* This targets the div containing <Routes> in App.jsx */
+.App > div > div {
+  flex-grow: 1; /* Allows this area to fill available vertical space */
+  display: flex;
+  flex-direction: column; /* Stacks components vertically */
+  align-items: center; /* Centers content horizontally within this column */
+  width: 100%;
+  max-width: 800px; /* Limits the maximum width for better readability on large screens */
+  margin: 30px auto; /* Centers the entire content block horizontally with vertical margins */
+  padding: 0 20px; /* Adds horizontal padding for smaller screens */
+  box-sizing: border-box; /* Ensures padding is included in the element's total width */
+}
+
+/* Styling for forms and individual post cards - consistent 'card' look */
+.form-container,
+.post-card,
+.create-post-container {
+    background-color: #fff; /* White background for the cards */
+    border-radius: 10px; /* Smooth rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* More prominent shadow for a 'floating' effect */
+    padding: 25px; /* Ample internal padding */
+    margin-bottom: 25px; /* Space between multiple cards */
+    width: 100%; /* Takes full width of its parent (.App > div > div) */
+    box-sizing: border-box; /* Includes padding in width */
+}
+
+/* Common styles for input fields and textareas */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px; /* Space below each field */
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 5px; /* Rounded corners */
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s ease; /* Smooth transition for border color on focus */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  outline: none; /* Removes default outline */
+  border-color: #28a745; /* Green border on focus */
+}
+
+/* Common styles for submit buttons */
+button[type="submit"] {
+  background-color: #007bff; /* Primary blue color */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+  width: 100%; /* Full width */
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Styles for messages (success/error) */
+.message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
   text-align: center;
+  font-weight: bold;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.message.success {
+  color: #28a745; /* Green text */
+  background-color: #d4edda; /* Light green background */
+  border: 1px solid #c3e6cb;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.message.error {
+  color: #dc3545; /* Red text */
+  background-color: #f8d7da; /* Light red background */
+  border: 1px solid #f5c6cb;
+}
+
+/* Specific styling for PostFeed components (individual posts) */
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.post-header img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%; /* Circular profile pictures */
+  margin-right: 15px;
+  object-fit: cover; /* Ensures image covers the area without distortion */
+  border: 2px solid #eee; /* Light border around avatar */
+}
+
+.post-header h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+.post-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #777;
+}
+
+.post-text {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  word-wrap: break-word; /* Prevents long words from breaking layout */
+}
+
+.post-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px; /* Rounded corners for post images */
+  margin-top: 10px;
+  display: block; /* Ensures image behaves as a block element */
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #eee; /* Separator line for actions */
+}
+
+.post-actions button {
+  background: none; /* No background */
+  border: none; /* No border */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #007bff; /* Blue for the like button */
+  font-size: 15px;
+  font-weight: 600;
+  transition: color 0.3s ease; /* Smooth color change on hover */
+}
+
+.post-actions button:hover {
+  color: #0056b3; /* Darker blue on hover */
+}
+
+.post-actions button span {
+  margin-left: 5px; /* Space between heart emoji and text */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  nav ul {
+    justify-content: space-around; /* Spreads navigation items on smaller screens */
   }
-  to {
-    transform: rotate(360deg);
+  nav ul li {
+    margin-right: 10px;
+  }
+  nav ul li a,
+  nav ul li button {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+  .App > div > div {
+    margin: 15px auto; /* Reduced margin */
+    padding: 0 10px; /* Reduced horizontal padding */
+  }
+  .form-container,
+  .post-card,
+  .create-post-container {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  input, textarea, button[type="submit"] {
+    font-size: 15px;
+    padding: 10px;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@media (max-width: 480px) {
+  nav {
+    padding: 10px 15px;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  nav ul {
+    flex-wrap: wrap; /* Allows navigation items to wrap to next line */
+  }
+  nav ul li {
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+  nav ul li a,
+  nav ul li button {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
 }

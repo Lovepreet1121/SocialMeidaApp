@@ -13,12 +13,13 @@ exports.signup = async (req, res) => {
     const { username, email, password, profilePicture, bio } = req.body;
 
     try {
-        // Check if user already exists
+        // Check if user already exists by email
         let user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({ message: 'User with this email already exists' });
         }
 
+        // Check if username already exists
         user = await User.findOne({ username });
         if (user) {
             return res.status(400).json({ message: 'Username already taken' });
@@ -95,12 +96,30 @@ exports.login = async (req, res) => {
             { expiresIn: '1h' }, // Token expires in 1 hour
             (err, token) => {
                 if (err) throw err;
-                res.json({ message: 'Logged in successfully', token, user: { id: user.id, username: user.username, email: user.email } });
+                // Return user details along with token
+                res.json({ message: 'Logged in successfully', token, user: { id: user.id, username: user.username, email: user.email, profilePicture: user.profilePicture, bio: user.bio } });
             }
         );
 
     } catch (err) {
         console.error('Login error:', err.message);
         res.status(500).send('Server error during login');
+    }
+};
+
+// @route   GET /api/auth
+// @desc    Get authenticated user data
+// @access  Private (requires auth middleware)
+exports.getAuthenticatedUser = async (req, res) => {
+    try {
+        // req.user.id is populated from the auth middleware
+        const user = await User.findById(req.user.id).select('-password'); // -password means return everything except the password
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (err) {
+        console.error('Error fetching authenticated user:', err.message);
+        res.status(500).send('Server error while fetching user data');
     }
 };
