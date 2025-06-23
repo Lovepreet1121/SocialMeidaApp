@@ -3,8 +3,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts');
 const userRoutes = require('./routes/users'); // Ensure this is imported if you have user-specific routes
-const profileRoutes = require('./routes/profile'); // <-- ADD THIS LINE for profile routes
-const cors = require('cors');
+const profileRoutes = require('./routes/profile'); // 
 require('dotenv').config();
 
 const app = express();
